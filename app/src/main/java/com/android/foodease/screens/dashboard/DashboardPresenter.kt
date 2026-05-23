@@ -1,5 +1,7 @@
 package com.android.foodease.screens.dashboard
 
+import com.android.foodease.common.data.Food
+
 class DashboardPresenter(
     private val view: DashboardView,
     private val model: DashboardModel
