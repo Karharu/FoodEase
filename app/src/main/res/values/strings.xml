@@ -17,10 +17,10 @@
 
     <!-- Dashboard -->
     <string name="dashboard_welcome">Welcome, %1$s!</string>
-    <string name="dashboard_subtitle">Your food journey starts here 🍽</string>
-    <string name="dashboard_section_title">Popular meals</string>
-    <string name="dashboard_search_hint">Add a new meal</string>
-    <string name="dashboard_add_button">Add meal</string>
+    <string name="dashboard_subtitle">Choose your favorite meals</string>
+    <string name="dashboard_search_hint">Search restaurants, dishes...</string>
+    <string name="dashboard_section_title">Trending Dishes</string>
+    <string name="dashboard_nearby_title">Nearby Food Spots</string>
     <string name="button_logout">LOG OUT</string>
 
     <!-- Forgot Password -->

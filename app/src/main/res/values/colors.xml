@@ -5,6 +5,7 @@
     <color name="food_primary">#E64A19</color>
     <color name="food_accent">#FF7043</color>
     <color name="food_background">#FFF8F0</color>
+    <color name="food_header">#FF7043</color>
     <color name="text_secondary">#555555</color>
     <color name="text_muted">#888888</color>
     <color name="food_card">#FFFFFFFF</color>

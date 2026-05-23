@@ -2,7 +2,6 @@ package com.android.foodease.screens.dashboard
 
 import android.app.Activity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,11 +14,12 @@ import com.android.foodease.common.utils.showToast
 class DashboardActivity : Activity(), DashboardView {
 
     private lateinit var presenter: DashboardPresenterContract
-    private lateinit var adapter: FoodAdapter
+    private lateinit var trendingAdapter: TrendingFoodAdapter
+    private lateinit var nearbyAdapter: NearbySpotAdapter
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var editTextFood: EditText
-    private lateinit var buttonAdd: Button
+    private lateinit var trendingRecycler: RecyclerView
+    private lateinit var nearbyRecycler: RecyclerView
+    private lateinit var searchEditText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,29 +32,31 @@ class DashboardActivity : Activity(), DashboardView {
             model = DashboardModel(application as CustomApp)
         )
 
-        recyclerView = findViewById(R.id.recycler_foods)
-        editTextFood = findViewById(R.id.edittext_food)
-        buttonAdd = findViewById(R.id.button_add)
+        trendingRecycler = findViewById(R.id.recycler_trending)
+        nearbyRecycler = findViewById(R.id.recycler_nearby)
+        searchEditText = findViewById(R.id.edittext_food)
 
-        adapter = FoodAdapter(
+        trendingAdapter = TrendingFoodAdapter(
             arrayListOf(),
             onItemClick = { position ->
-                val food = presenter.getFoods()[position]
+                val food = presenter.getTrendingFoods()[position]
                 showToast(food.foodName)
-            },
-            onItemLongClick = { position ->
-                presenter.removeFood(position)
-                showToast("Item Removed")
             }
         )
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
+        nearbyAdapter = NearbySpotAdapter(
+            arrayListOf(),
+            onItemClick = { position ->
+                val spot = presenter.getNearbySpots()[position]
+                showToast(spot.foodName)
+            }
+        )
 
-        buttonAdd.setOnClickListener {
-            presenter.addFood(editTextFood.text.toString())
-            editTextFood.text.clear()
-        }
+        trendingRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        trendingRecycler.adapter = trendingAdapter
+
+        nearbyRecycler.layoutManager = LinearLayoutManager(this)
+        nearbyRecycler.adapter = nearbyAdapter
 
         presenter.onViewReady(username)
     }
@@ -64,8 +66,12 @@ class DashboardActivity : Activity(), DashboardView {
             getString(R.string.dashboard_welcome, username)
     }
 
-    override fun displayFoods(foodList: ArrayList<Food>) {
-        adapter.updateFoods(foodList)
+    override fun displayTrending(trendingFoods: ArrayList<Food>) {
+        trendingAdapter.updateFoods(trendingFoods)
+    }
+
+    override fun displayNearby(nearbySpots: ArrayList<Food>) {
+        nearbyAdapter.updateFoods(nearbySpots)
     }
 
     override fun showMessage(message: String) {
