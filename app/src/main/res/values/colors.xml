@@ -10,4 +10,8 @@
     <color name="text_muted">#888888</color>
     <color name="food_card">#FFFFFFFF</color>
     <color name="link_blue">#1976D2</color>
+    <color name="profile_background">#F5F5F5</color>
+    <color name="profile_muted">#9E9E9E</color>
+    <color name="profile_divider">#EEEEEE</color>
+    <color name="profile_icon_bg">#FFF3EC</color>
 </resources>

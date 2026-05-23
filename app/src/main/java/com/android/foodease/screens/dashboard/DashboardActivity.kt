@@ -6,6 +6,9 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.TextView
+import android.content.Intent
+import android.widget.ImageView
+import com.android.foodease.screens.profile.ProfileActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.foodease.R
@@ -34,6 +37,10 @@ class DashboardActivity : Activity(), DashboardView {
             view = this,
             model = DashboardModel(application as CustomApp)
         )
+
+        findViewById<ImageView>(R.id.imageview_avatar).setOnClickListener {
+            startActivity(Intent(this, ProfileActivity::class.java))
+        }
 
         trendingRecycler = findViewById(R.id.recycler_trending)
         nearbyRecycler = findViewById(R.id.recycler_nearby)
@@ -112,6 +119,7 @@ class DashboardActivity : Activity(), DashboardView {
         trendingAdapter.updateFoods(ArrayList(filteredTrending))
         nearbyAdapter.updateFoods(ArrayList(filteredNearby))
     }
+
 
     override fun showMessage(message: String) {
         showToast(message)

@@ -10,6 +10,8 @@ class CustomApp : Application() {
         User(username = "test", password = "1111")
     )
 
+    var loggedInUser: User? = null
+
     override fun onCreate() {
         super.onCreate()
         Log.d(TAG, "Application started")
@@ -27,6 +29,10 @@ class CustomApp : Application() {
 
     fun registerUser(user: User) {
         registeredUsers.add(user)
+    }
+
+    fun clearSession() {
+        loggedInUser = null
     }
 
     companion object {
