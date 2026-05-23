@@ -1,5 +1,6 @@
 package com.android.foodease.screens.dashboard
 
+import com.android.foodease.R
 import com.android.foodease.app.CustomApp
 import com.android.foodease.common.data.Food
 
@@ -13,7 +14,7 @@ class DashboardModel(private val app: CustomApp) {
             rating = "4.8",
             reviews = "120",
             distance = "",
-            imageRes = android.R.drawable.ic_menu_camera
+            imageRes = R.drawable.food_burger
         ),
         Food(
             foodName = "Spicy Ramen",
@@ -22,7 +23,7 @@ class DashboardModel(private val app: CustomApp) {
             rating = "4.6",
             reviews = "98",
             distance = "",
-            imageRes = android.R.drawable.ic_menu_gallery
+            imageRes = R.drawable.food_ramen
         ),
         Food(
             foodName = "Classic Pasta",
@@ -31,7 +32,7 @@ class DashboardModel(private val app: CustomApp) {
             rating = "4.7",
             reviews = "75",
             distance = "",
-            imageRes = android.R.drawable.ic_menu_slideshow
+            imageRes = R.drawable.food_pasta
         )
     )
 
@@ -43,7 +44,7 @@ class DashboardModel(private val app: CustomApp) {
             rating = "4.8",
             reviews = "234 reviews",
             distance = "",
-            imageRes = android.R.drawable.ic_menu_compass
+            imageRes = R.drawable.nearby_burger_house
         ),
         Food(
             foodName = "Tokyo Kitchen",
@@ -52,7 +53,7 @@ class DashboardModel(private val app: CustomApp) {
             rating = "4.9",
             reviews = "198 reviews",
             distance = "",
-            imageRes = android.R.drawable.ic_menu_gallery
+            imageRes = R.drawable.nearby_tokyo_kitchen
         )
     )
 

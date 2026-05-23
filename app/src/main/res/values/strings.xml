@@ -40,4 +40,7 @@
     <!-- Success -->
     <string name="success_login">Login successful!</string>
     <string name="success_register">Registration successful!</string>
+
+    <string name="cd_profile_avatar">Profile avatar</string>
+    <string name="cd_food_image">Food image</string>
 </resources>
