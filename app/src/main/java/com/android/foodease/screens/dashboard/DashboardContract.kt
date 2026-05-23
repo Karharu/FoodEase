@@ -1,12 +1,16 @@
 package com.android.foodease.screens.dashboard
 
+import com.android.foodease.common.data.Food
+
 interface DashboardView {
     fun showWelcomeMessage(username: String)
-    fun showLogoutSuccess()
-    fun navigateToLogin()
+    fun displayFoods(foodList: ArrayList<Food>)
+    fun showMessage(message: String)
 }
 
 interface DashboardPresenterContract {
     fun onViewReady(username: String)
-    fun onLogoutClicked()
+    fun addFood(foodName: String)
+    fun removeFood(position: Int)
+    fun getFoods(): ArrayList<Food>
 }
