@@ -4,8 +4,9 @@ import android.app.Activity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ListView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.foodease.R
 import com.android.foodease.app.CustomApp
 import com.android.foodease.common.data.Food
@@ -16,7 +17,7 @@ class DashboardActivity : Activity(), DashboardView {
     private lateinit var presenter: DashboardPresenterContract
     private lateinit var adapter: FoodAdapter
 
-    private lateinit var listView: ListView
+    private lateinit var recyclerView: RecyclerView
     private lateinit var editTextFood: EditText
     private lateinit var buttonAdd: Button
 
@@ -31,24 +32,28 @@ class DashboardActivity : Activity(), DashboardView {
             model = DashboardModel(application as CustomApp)
         )
 
-        listView = findViewById(R.id.listview_foods)
+        recyclerView = findViewById(R.id.recycler_foods)
         editTextFood = findViewById(R.id.edittext_food)
         buttonAdd = findViewById(R.id.button_add)
+
+        adapter = FoodAdapter(
+            arrayListOf(),
+            onItemClick = { position ->
+                val food = presenter.getFoods()[position]
+                showToast(food.foodName)
+            },
+            onItemLongClick = { position ->
+                presenter.removeFood(position)
+                showToast("Item Removed")
+            }
+        )
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
 
         buttonAdd.setOnClickListener {
             presenter.addFood(editTextFood.text.toString())
             editTextFood.text.clear()
-        }
-
-        listView.setOnItemClickListener { _, _, position, _ ->
-            val food = presenter.getFoods()[position]
-            showToast(food.foodName)
-        }
-
-        listView.setOnItemLongClickListener { _, _, position, _ ->
-            presenter.removeFood(position)
-            showToast("Item Removed")
-            true
         }
 
         presenter.onViewReady(username)
@@ -60,12 +65,7 @@ class DashboardActivity : Activity(), DashboardView {
     }
 
     override fun displayFoods(foodList: ArrayList<Food>) {
-        if (!::adapter.isInitialized) {
-            adapter = FoodAdapter(this, foodList)
-            listView.adapter = adapter
-        } else {
-            adapter.notifyDataSetChanged()
-        }
+        adapter.updateFoods(foodList)
     }
 
     override fun showMessage(message: String) {

@@ -6,9 +6,9 @@ import com.android.foodease.common.data.Food
 class DashboardModel(private val app: CustomApp) {
 
     private val foods = arrayListOf(
-        Food("Burger"),
-        Food("Pizza"),
-        Food("Fries")
+        Food("Burger", "Fast Food", android.R.drawable.ic_menu_camera),
+        Food("Pizza", "Italian", android.R.drawable.ic_menu_compass),
+        Food("Fries", "Side Dish", android.R.drawable.ic_menu_gallery)
     )
 
     fun getLoggedInUser(username: String): String {
@@ -20,7 +20,7 @@ class DashboardModel(private val app: CustomApp) {
     }
 
     fun addFood(foodName: String) {
-        foods.add(Food(foodName))
+        foods.add(Food(foodName, "Custom", android.R.drawable.ic_menu_slideshow))
     }
 
     fun removeFood(position: Int) {

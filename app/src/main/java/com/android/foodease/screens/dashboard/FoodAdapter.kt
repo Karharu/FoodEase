@@ -1,27 +1,52 @@
 package com.android.foodease.screens.dashboard
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.android.foodease.R
 import com.android.foodease.common.data.Food
 
 class FoodAdapter(
-    context: Context,
-    private val foods: ArrayList<Food>
-) : ArrayAdapter<Food>(context, 0, foods) {
+    private val foods: ArrayList<Food>,
+    private val onItemClick: (Int) -> Unit,
+    private val onItemLongClick: (Int) -> Unit
+) : RecyclerView.Adapter<FoodAdapter.FoodViewHolder>() {
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val view = convertView ?: LayoutInflater.from(context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
+        val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_food, parent, false)
+        return FoodViewHolder(view)
+    }
 
-        val food = foods[position]
-        val foodName = view.findViewById<TextView>(R.id.textview_food_name)
-        foodName.text = food.foodName
+    override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
+        holder.bind(foods[position])
+        holder.itemView.setOnClickListener { onItemClick(position) }
+        holder.itemView.setOnLongClickListener {
+            onItemLongClick(position)
+            true
+        }
+    }
 
-        return view
+    override fun getItemCount(): Int = foods.size
+
+    fun updateFoods(newFoods: List<Food>) {
+        foods.clear()
+        foods.addAll(newFoods)
+        notifyDataSetChanged()
+    }
+
+    class FoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val imageView: ImageView = itemView.findViewById(R.id.imageview_food_icon)
+        private val nameView: TextView = itemView.findViewById(R.id.textview_food_name)
+        private val categoryView: TextView = itemView.findViewById(R.id.textview_food_category)
+
+        fun bind(food: Food) {
+            imageView.setImageResource(food.imageRes)
+            nameView.text = food.foodName
+            categoryView.text = food.category
+        }
     }
 }
