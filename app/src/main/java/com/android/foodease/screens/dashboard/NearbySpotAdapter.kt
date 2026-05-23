@@ -1,5 +1,6 @@
 package com.android.foodease.screens.dashboard
 
+import com.android.foodease.common.data.Food
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.android.foodease.R
-import com.android.foodease.common.data.Food
 
 class NearbySpotAdapter(
     private val spots: ArrayList<Food>,

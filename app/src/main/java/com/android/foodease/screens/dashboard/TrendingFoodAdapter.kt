@@ -34,18 +34,18 @@ class TrendingFoodAdapter(
     }
 
     class TrendingFoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val imageView: ImageView = itemView.findViewById(R.id.imageview_trending_food)
-        private val nameView: TextView = itemView.findViewById(R.id.textview_trending_food_name)
+        private val imageView: ImageView   = itemView.findViewById(R.id.imageview_trending_food)
+        private val nameView: TextView     = itemView.findViewById(R.id.textview_trending_food_name)
         private val subtitleView: TextView = itemView.findViewById(R.id.textview_trending_food_subtitle)
-        private val priceView: TextView = itemView.findViewById(R.id.textview_trending_food_price)
-        private val ratingView: TextView = itemView.findViewById(R.id.textview_trending_food_rating)
+        private val priceView: TextView    = itemView.findViewById(R.id.textview_trending_food_price)
+        private val ratingView: TextView   = itemView.findViewById(R.id.textview_trending_food_rating)
 
         fun bind(food: Food) {
             imageView.setImageResource(food.imageRes)
-            nameView.text = food.foodName
+            nameView.text     = food.foodName
             subtitleView.text = food.subtitle
-            priceView.text = food.price
-            ratingView.text = food.rating
+            priceView.text    = food.price
+            ratingView.text   = food.rating
         }
     }
 }

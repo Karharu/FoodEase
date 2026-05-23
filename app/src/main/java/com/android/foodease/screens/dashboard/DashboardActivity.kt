@@ -1,20 +1,21 @@
 package com.android.foodease.screens.dashboard
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import com.android.foodease.common.data.Food
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
-import android.widget.TextView
-import android.content.Intent
 import android.widget.ImageView
-import com.android.foodease.screens.profile.ProfileActivity
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.foodease.R
 import com.android.foodease.app.CustomApp
-import com.android.foodease.common.data.Food
 import com.android.foodease.common.utils.showToast
+import com.android.foodease.screens.fooddetail.FoodDetailActivity
+import com.android.foodease.screens.profile.ProfileActivity
 
 class DashboardActivity : Activity(), DashboardView {
 
@@ -38,20 +39,25 @@ class DashboardActivity : Activity(), DashboardView {
             model = DashboardModel(application as CustomApp)
         )
 
+        // Views
+        trendingRecycler = findViewById(R.id.recycler_trending)
+        nearbyRecycler   = findViewById(R.id.recycler_nearby)
+        searchEditText   = findViewById(R.id.edittext_food)
+        sectionAction    = findViewById(R.id.textview_section_action)
+
+        // Avatar → Profile
         findViewById<ImageView>(R.id.imageview_avatar).setOnClickListener {
             startActivity(Intent(this, ProfileActivity::class.java))
         }
 
-        trendingRecycler = findViewById(R.id.recycler_trending)
-        nearbyRecycler = findViewById(R.id.recycler_nearby)
-        searchEditText = findViewById(R.id.edittext_food)
-        sectionAction = findViewById(R.id.textview_section_action)
-
+        // Adapters
         trendingAdapter = TrendingFoodAdapter(
             arrayListOf(),
             onItemClick = { position ->
                 val food = presenter.getTrendingFoods()[position]
-                showToast(food.foodName)
+                val intent = Intent(this, FoodDetailActivity::class.java)
+                intent.putExtra(FoodDetailActivity.EXTRA_FOOD, food as java.io.Serializable)
+                startActivity(intent)
             }
         )
 
@@ -59,7 +65,9 @@ class DashboardActivity : Activity(), DashboardView {
             arrayListOf(),
             onItemClick = { position ->
                 val spot = presenter.getNearbySpots()[position]
-                showToast(spot.foodName)
+                val intent = Intent(this, FoodDetailActivity::class.java)
+                intent.putExtra(FoodDetailActivity.EXTRA_FOOD, spot as java.io.Serializable)
+                startActivity(intent)
             }
         )
 
@@ -69,19 +77,17 @@ class DashboardActivity : Activity(), DashboardView {
         nearbyRecycler.layoutManager = LinearLayoutManager(this)
         nearbyRecycler.adapter = nearbyAdapter
 
-        // See All click handler
+        // See All
         sectionAction.setOnClickListener {
             showToast(getString(R.string.dashboard_section_title))
         }
 
-        // Search filtering
+        // Search
         searchEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val query = s?.toString().orEmpty().trim().lowercase()
-                filterLists(query)
+                filterLists(s?.toString().orEmpty().trim().lowercase())
             }
-
             override fun afterTextChanged(s: Editable?) {}
         })
 
@@ -116,10 +122,9 @@ class DashboardActivity : Activity(), DashboardView {
             it.foodName.lowercase().contains(query) || it.subtitle.lowercase().contains(query)
         }
 
-        trendingAdapter.updateFoods(ArrayList(filteredTrending))
-        nearbyAdapter.updateFoods(ArrayList(filteredNearby))
+        trendingAdapter.updateFoods(filteredTrending)
+        nearbyAdapter.updateFoods(filteredNearby)
     }
-
 
     override fun showMessage(message: String) {
         showToast(message)
@@ -129,4 +134,3 @@ class DashboardActivity : Activity(), DashboardView {
         const val EXTRA_USERNAME = "extra_username"
     }
 }
-

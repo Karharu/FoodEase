@@ -1,5 +1,4 @@
 package com.android.foodease.common.data
-
 data class Food(
     val foodName: String,
     val subtitle: String,
@@ -7,5 +6,5 @@ data class Food(
     val rating: String,
     val reviews: String,
     val distance: String,
-    val imageRes: Int
-)
+    val imageRes: Int = 0
+) : java.io.Serializable

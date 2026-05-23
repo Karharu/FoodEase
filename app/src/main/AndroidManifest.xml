@@ -14,6 +14,9 @@
         android:theme="@style/Theme.FoodEase"
         tools:targetApi="31">
         <activity
+            android:name=".screens.fooddetail.FoodDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".screens.profile.ProfileActivity"
             android:exported="false" />
         <activity
