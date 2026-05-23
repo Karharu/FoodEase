@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">FoodEase</string>
+
+    <!-- Login -->
+    <string name="login_title">Sign In to Continue</string>
+    <string name="hint_username">Enter Username</string>
+    <string name="hint_password">Enter Password</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="button_login">LOGIN</string>
+    <string name="link_forgot_password">Forgot Password?</string>
+    <string name="link_create_account">Create New Account</string>
+
+    <!-- Register -->
+    <string name="register_title">Create Your Account</string>
+    <string name="button_register">REGISTER</string>
+    <string name="link_already_have_account">Already have an account? Sign In</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_welcome">Welcome, %1$s!</string>
+    <string name="dashboard_subtitle">Your food journey starts here 🍽</string>
+
+    <!-- Errors -->
+    <string name="error_empty_fields">Fields cannot be empty!</string>
+    <string name="error_invalid_credentials">Invalid credentials!</string>
+    <string name="error_password_mismatch">Passwords do not match!</string>
+    <string name="error_username_taken">Username already taken!</string>
+
+    <!-- Success -->
+    <string name="success_login">Login successful!</string>
+    <string name="success_register">Registration successful!</string>
+</resources>
