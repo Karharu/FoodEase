@@ -9,4 +9,9 @@ class DashboardPresenter(
         val displayName = model.getLoggedInUser(username)
         view.showWelcomeMessage(displayName)
     }
+
+    override fun onLogoutClicked() {
+        view.showLogoutSuccess()
+        view.navigateToLogin()
+    }
 }

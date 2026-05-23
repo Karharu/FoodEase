@@ -10,6 +10,7 @@ import com.android.foodease.app.CustomApp
 import com.android.foodease.common.utils.getEditTextValue
 import com.android.foodease.common.utils.showToast
 import com.android.foodease.screens.dashboard.DashboardActivity
+import com.android.foodease.screens.forgotpassword.ForgotPasswordActivity
 import com.android.foodease.screens.register.RegisterActivity
 
 class LoginActivity : Activity(), LoginView {
@@ -30,6 +31,10 @@ class LoginActivity : Activity(), LoginView {
                 username = getEditTextValue(R.id.edittext_login_username),
                 password = getEditTextValue(R.id.edittext_login_password)
             )
+        }
+
+        findViewById<TextView>(R.id.textview_forgot_password).setOnClickListener {
+            presenter.onForgotPasswordClicked()
         }
 
         findViewById<TextView>(R.id.textview_create_account).setOnClickListener {
@@ -57,5 +62,9 @@ class LoginActivity : Activity(), LoginView {
 
     override fun navigateToRegister() {
         startActivity(Intent(this, RegisterActivity::class.java))
+    }
+
+    override fun navigateToForgotPassword() {
+        startActivity(Intent(this, ForgotPasswordActivity::class.java))
     }
 }

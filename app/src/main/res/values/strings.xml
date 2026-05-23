@@ -18,6 +18,15 @@
     <!-- Dashboard -->
     <string name="dashboard_welcome">Welcome, %1$s!</string>
     <string name="dashboard_subtitle">Your food journey starts here 🍽</string>
+    <string name="button_logout">LOG OUT</string>
+
+    <!-- Forgot Password -->
+    <string name="forgot_password_title">Recover Your Password</string>
+    <string name="button_recover_password">RECOVER PASSWORD</string>
+    <string name="link_back_to_login">Back to Sign In</string>
+    <string name="error_user_not_found">Username does not exist!</string>
+    <string name="success_password_retrieved">Password recovered: %1$s</string>
+    <string name="success_logout">You have been logged out.</string>
 
     <!-- Errors -->
     <string name="error_empty_fields">Fields cannot be empty!</string>

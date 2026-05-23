@@ -2,9 +2,11 @@ package com.android.foodease.screens.dashboard
 
 import android.app.Activity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import com.android.foodease.R
 import com.android.foodease.app.CustomApp
+import com.android.foodease.common.utils.showToast
 
 class DashboardActivity : Activity(), DashboardView {
 
@@ -21,12 +23,24 @@ class DashboardActivity : Activity(), DashboardView {
             model = DashboardModel(application as CustomApp)
         )
 
+        findViewById<Button>(R.id.button_logout).setOnClickListener {
+            presenter.onLogoutClicked()
+        }
+
         presenter.onViewReady(username)
     }
 
     override fun showWelcomeMessage(username: String) {
         findViewById<TextView>(R.id.textview_welcome).text =
             getString(R.string.dashboard_welcome, username)
+    }
+
+    override fun showLogoutSuccess() {
+        showToast(getString(R.string.success_logout))
+    }
+
+    override fun navigateToLogin() {
+        finish()
     }
 
     companion object {

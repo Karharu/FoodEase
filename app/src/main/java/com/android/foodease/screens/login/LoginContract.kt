@@ -6,9 +6,11 @@ interface LoginView {
     fun showLoginSuccess()
     fun navigateToDashboard(username: String)
     fun navigateToRegister()
+    fun navigateToForgotPassword()
 }
 
 interface LoginPresenterContract {
     fun onLoginClicked(username: String, password: String)
     fun onCreateAccountClicked()
+    fun onForgotPasswordClicked()
 }

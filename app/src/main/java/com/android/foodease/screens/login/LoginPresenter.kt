@@ -22,4 +22,8 @@ class LoginPresenter(
     override fun onCreateAccountClicked() {
         view.navigateToRegister()
     }
+
+    override fun onForgotPasswordClicked() {
+        view.navigateToForgotPassword()
+    }
 }

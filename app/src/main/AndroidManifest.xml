@@ -20,6 +20,9 @@
             android:name=".screens.register.RegisterActivity"
             android:exported="false" />
         <activity
+            android:name=".screens.forgotpassword.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".screens.login.LoginActivity"
             android:exported="true">
             <intent-filter>
