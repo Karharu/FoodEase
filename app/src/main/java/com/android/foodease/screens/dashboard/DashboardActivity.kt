@@ -2,6 +2,8 @@ package com.android.foodease.screens.dashboard
 
 import android.app.Activity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.EditText
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +22,7 @@ class DashboardActivity : Activity(), DashboardView {
     private lateinit var trendingRecycler: RecyclerView
     private lateinit var nearbyRecycler: RecyclerView
     private lateinit var searchEditText: EditText
+    private lateinit var sectionAction: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +38,7 @@ class DashboardActivity : Activity(), DashboardView {
         trendingRecycler = findViewById(R.id.recycler_trending)
         nearbyRecycler = findViewById(R.id.recycler_nearby)
         searchEditText = findViewById(R.id.edittext_food)
+        sectionAction = findViewById(R.id.textview_section_action)
 
         trendingAdapter = TrendingFoodAdapter(
             arrayListOf(),
@@ -58,6 +62,22 @@ class DashboardActivity : Activity(), DashboardView {
         nearbyRecycler.layoutManager = LinearLayoutManager(this)
         nearbyRecycler.adapter = nearbyAdapter
 
+        // See All click handler
+        sectionAction.setOnClickListener {
+            showToast(getString(R.string.dashboard_section_title))
+        }
+
+        // Search filtering
+        searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val query = s?.toString().orEmpty().trim().lowercase()
+                filterLists(query)
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
         presenter.onViewReady(username)
     }
 
@@ -72,6 +92,25 @@ class DashboardActivity : Activity(), DashboardView {
 
     override fun displayNearby(nearbySpots: ArrayList<Food>) {
         nearbyAdapter.updateFoods(nearbySpots)
+    }
+
+    private fun filterLists(query: String) {
+        if (query.isEmpty()) {
+            trendingAdapter.updateFoods(presenter.getTrendingFoods())
+            nearbyAdapter.updateFoods(presenter.getNearbySpots())
+            return
+        }
+
+        val filteredTrending = presenter.getTrendingFoods().filter {
+            it.foodName.lowercase().contains(query) || it.subtitle.lowercase().contains(query)
+        }
+
+        val filteredNearby = presenter.getNearbySpots().filter {
+            it.foodName.lowercase().contains(query) || it.subtitle.lowercase().contains(query)
+        }
+
+        trendingAdapter.updateFoods(ArrayList(filteredTrending))
+        nearbyAdapter.updateFoods(ArrayList(filteredNearby))
     }
 
     override fun showMessage(message: String) {
